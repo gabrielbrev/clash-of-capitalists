@@ -6,11 +6,14 @@ public class OrbitCamera : MonoBehaviour
 {
     public Transform target;
     public float distance;
-    public float orbitAngle;
     public float verticalAngle;
-    public float speed;
-    private Vector2 mouseDelta;
+    public float rotateSpeed;
+
+    [SerializeField] private float orbitAngle;
+    
     private float targetOrbitAngle;
+    private Vector2 mouseDelta;
+    private Vector2 mousePos;
 
     void UpdatePosition()
     {
@@ -22,27 +25,14 @@ public class OrbitCamera : MonoBehaviour
         transform.LookAt(target);
     }
 
-    void UpdateOrbit(float direction)
+    bool IsMouseInTopHalf(Vector2 mousePos)
     {
-        float amount = speed * Time.deltaTime;
-        if (direction < 0)
-        {
-            orbitAngle = Math.Max(orbitAngle - amount, targetOrbitAngle);
-        }
-        else if (direction > 0)
-        {
-            orbitAngle = Math.Min(orbitAngle + amount, targetOrbitAngle);
-        }
+        return mousePos.y > Screen.height / 2;
     }
 
-    bool IsMouseInTopHalf()
+    bool IsMouseInRightHalf(Vector2 mousePos)
     {
-        return Mouse.current.position.ReadValue().y > Screen.height / 2;
-    }
-
-    bool IsMouseInRightHalf()
-    {
-        return Mouse.current.position.ReadValue().x > Screen.width / 2;
+        return mousePos.x > Screen.width / 2;
     }
 
     void HandleMouseDrag()
@@ -53,26 +43,24 @@ public class OrbitCamera : MonoBehaviour
             float direction;
 
             mouseDelta = Mouse.current.delta.ReadValue();
+            mousePos = Mouse.current.position.ReadValue();
 
+            // Decide a direção que a rotação vai acontecer dependendo do movimento e da posição do mouse
             if (Math.Abs(mouseDelta.x) > Math.Abs(mouseDelta.y))
             {
                 deltaAngle = mouseDelta.x;
-                direction = IsMouseInTopHalf() ? -1f : 1f;
+                direction = IsMouseInTopHalf(mousePos) ? -1f : 1f;
             }
             else
             {
                 deltaAngle = mouseDelta.y;
-                direction = IsMouseInRightHalf() ? 1f : -1f;
+                direction = IsMouseInRightHalf(mousePos) ? 1f : -1f;
             }  
 
             targetOrbitAngle += deltaAngle * direction;
         }
 
-        float angleDiff = targetOrbitAngle - orbitAngle;
-        if (angleDiff != 0)
-        {            
-            UpdateOrbit(angleDiff);
-        }
+        orbitAngle = Mathf.LerpAngle(orbitAngle, targetOrbitAngle, Time.deltaTime * rotateSpeed);
     }
 
     void Start()
