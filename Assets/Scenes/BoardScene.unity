@@ -271,9 +271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   target: {fileID: 1212380105}
   distance: 10
-  orbitAngle: 30
   verticalAngle: 30
-  speed: 500
+  rotateSpeed: 5
+  orbitAngle: 30
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
