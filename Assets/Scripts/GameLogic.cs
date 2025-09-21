@@ -32,6 +32,8 @@ public class GameLogic : MonoBehaviour
 
     private IEnumerator PlayRound()
     {
+        yield return _waitForSeconds1_25;
+        
         Player player = players[currRound % players.Count];
 
         int currIndex = player.GetIndex();
@@ -56,7 +58,6 @@ public class GameLogic : MonoBehaviour
         }
 
         currRound += 1;
-        yield return _waitForSeconds1_25;
     }
 
     private IEnumerator StartGame()
