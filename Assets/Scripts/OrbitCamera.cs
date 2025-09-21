@@ -14,6 +14,7 @@ public class OrbitCamera : MonoBehaviour
     private float targetOrbitAngle;
     private Vector2 mouseDelta;
     private Vector2 mousePos;
+    private Vector2 lastMousePos;
 
     void UpdatePosition()
     {
@@ -37,13 +38,15 @@ public class OrbitCamera : MonoBehaviour
 
     void HandleMouseDrag()
     {
+        mousePos = Mouse.current.position.ReadValue();
+        
         if (Mouse.current.leftButton.isPressed)
         {
             float deltaAngle;
             float direction;
 
-            mouseDelta = Mouse.current.delta.ReadValue();
-            mousePos = Mouse.current.position.ReadValue();
+            mouseDelta = mousePos - lastMousePos;
+            Debug.Log($"{mousePos} {lastMousePos} {mouseDelta}");
 
             // Decide a direção que a rotação vai acontecer dependendo do movimento e da posição do mouse
             if (Math.Abs(mouseDelta.x) > Math.Abs(mouseDelta.y))
@@ -55,11 +58,12 @@ public class OrbitCamera : MonoBehaviour
             {
                 deltaAngle = mouseDelta.y;
                 direction = IsMouseInRightHalf(mousePos) ? 1f : -1f;
-            }  
+            }
 
-            targetOrbitAngle += deltaAngle * direction;
+            targetOrbitAngle += deltaAngle * direction * rotateSpeed * Time.deltaTime;
         }
-
+       
+        lastMousePos = mousePos;
         orbitAngle = Mathf.LerpAngle(orbitAngle, targetOrbitAngle, Time.deltaTime * rotateSpeed);
     }
 
