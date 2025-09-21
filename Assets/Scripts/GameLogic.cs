@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    private static readonly WaitForSeconds _waitForSeconds1 = new(1f);
+    private static readonly WaitForSeconds _waitForSeconds0_75 = new(0.75f);
+    private static readonly WaitForSeconds _waitForSeconds1_25 = new(1.25f);
     [SerializeField] private Board board;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int numPlayers; // Temporario, deverá ser setado pelo menu futuramente
@@ -51,10 +52,11 @@ public class GameLogic : MonoBehaviour
                 tile.Visit(player);
             }
 
-            yield return _waitForSeconds1;
+            yield return _waitForSeconds0_75;
         }
 
         currRound += 1;
+        yield return _waitForSeconds1_25;
     }
 
     private IEnumerator StartGame()

@@ -4,9 +4,19 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private float moveSpeed;
     private int index;
+    private Tile currTile;
     private Renderer playerRenderer;
     private CapsuleCollider playerCollider;
+    private Vector3 targetPos;
+
+    private void UpdatePosition()
+    {
+        if (!currTile) return;
+        targetPos = currTile.GetPlayerPosition(this);
+        transform.position = Vector3.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
+    }
 
     public int GetIndex()
     {
@@ -20,13 +30,10 @@ public class Player : MonoBehaviour
 
     public void MoveTo(Tile tile)
     {
-        Vector3 tilePos = tile.transform.position;
-        transform.position = new(
-            tilePos.x,
-            tilePos.y + playerCollider.bounds.size.y / 2,
-            tilePos.z
-        );
+        if (currTile) currTile.RemovePlayer(this);
+        tile.AddPlayer(this);
 
+        currTile = tile;
         index = tile.GetIndex();
     }
 
@@ -38,11 +45,11 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        playerRenderer.material.color = Utils.GetRandomColor();
+        playerRenderer.material.color = Random.ColorHSV();
     }
 
     void Update()
     {
-        
+        UpdatePosition();
     }
 }

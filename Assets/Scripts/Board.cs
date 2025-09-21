@@ -51,7 +51,7 @@ public class Board : MonoBehaviour
             // Inicializar o tile
             tile.SetIndex(index);
             tile.transform.parent = transform;
-            tileRenderer.material.color = Utils.GetRandomColor();
+            tileRenderer.material.color = Random.ColorHSV();
             SetTilePosition(tile, position, tileRenderer);
 
             // Logica para percorrer somente as celulas da borda do grid
