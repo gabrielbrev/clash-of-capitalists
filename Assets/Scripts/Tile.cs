@@ -1,14 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public abstract class Tile : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private int index;
+    protected bool selectable;
+
+    public int GetIndex()
+    {
+        return index;
+    }
+
+    public void SetIndex(int index)
+    {
+        this.index = index;
+    }
+
+    public bool IsSelectable()
+    {
+        return selectable;
+    }
+
+    public abstract void PassBy(Player player);
+
+    public abstract void Visit(Player player);
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         

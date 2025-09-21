@@ -8,7 +8,6 @@ public class Board : MonoBehaviour
     [SerializeField] private int rows;
     [SerializeField] private int cols;
     [SerializeField] private Tile[] tiles;
-
     private Renderer boardRenderer;
 
     private bool IsCorner(Vector2Int vec)
@@ -34,7 +33,7 @@ public class Board : MonoBehaviour
         );
     }
 
-    private void InitTiles()
+    public void InitTiles()
     {
         if (tiles.Length == 0) return;
 
@@ -43,17 +42,15 @@ public class Board : MonoBehaviour
         Vector2Int direction = new(0, 1);
         Vector2Int position = new(0, 0);
 
-        float tileSize = 1f / rows;
-
-
         do
-        {   
+        {
+            Debug.Log($"rodou {index}");
             Tile tile = tiles[index];
             Renderer tileRenderer = tile.GetComponent<Renderer>();
 
             // Inicializar o tile
+            tile.SetIndex(index);
             tile.transform.parent = transform;
-            tile.transform.localScale = new(tileSize, tileSize, tileSize);
             tileRenderer.material.color = Utils.GetRandomColor();
             SetTilePosition(tile, position, tileRenderer);
 
@@ -66,12 +63,27 @@ public class Board : MonoBehaviour
             position += direction;
             index++;
         } while (position != origin && index < tiles.Length);
-
     }
-    
-    void Start()
+
+    public Tile GetTile(int index)
+    {
+        // Retorna o tile do índice, repetindo ciclicamente se exceder o tamanho; retorna null se índice negativo.
+        return index < 0 ? null : tiles[index % tiles.Length];
+    }
+
+    public int GetNumTiles()
+    {
+        return tiles.Length;
+    }
+
+    void Awake()
     {
         boardRenderer = GetComponent<Renderer>();
+    }
+
+    void Start()
+    {
+        transform.localScale = new(rows, 1f, cols);
         InitTiles();
     }
 

@@ -16,7 +16,7 @@ public class OrbitCamera : MonoBehaviour
     private Vector2 mousePos;
     private Vector2 lastMousePos;
 
-    void UpdatePosition()
+    private void UpdatePosition()
     {
         Quaternion quaternion = Quaternion.Euler(verticalAngle, orbitAngle, 0f);
         Vector3 direction = quaternion * Vector3.forward;
@@ -26,17 +26,17 @@ public class OrbitCamera : MonoBehaviour
         transform.LookAt(target);
     }
 
-    bool IsMouseInTopHalf(Vector2 mousePos)
+    private bool IsMouseInTopHalf(Vector2 mousePos)
     {
         return mousePos.y > Screen.height / 2;
     }
 
-    bool IsMouseInRightHalf(Vector2 mousePos)
+    private bool IsMouseInRightHalf(Vector2 mousePos)
     {
         return mousePos.x > Screen.width / 2;
     }
 
-    void HandleMouseDrag()
+    private void HandleMouseDrag()
     {
         mousePos = Mouse.current.position.ReadValue();
         
