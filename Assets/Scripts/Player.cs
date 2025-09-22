@@ -5,8 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
+    [SerializeField] private int balance;
     private int index;
     private Tile currTile;
+
     private Renderer playerRenderer;
     private CapsuleCollider playerCollider;
     private Vector3 targetPos;
@@ -35,6 +37,17 @@ public class Player : MonoBehaviour
 
         currTile = tile;
         index = tile.GetIndex();
+    }
+
+    public void AddBalance(int amount)
+    {
+        balance += amount;
+    }
+
+    public void SubtractBalance(int amount)
+    {
+        // TODO: Adicionar regra para vender propriedade ou falir ao tentar subtrair um valor maior do que o saldo
+        balance -= amount;
     }
 
     void Awake()
