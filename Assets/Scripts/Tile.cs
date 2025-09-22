@@ -75,7 +75,7 @@ public abstract class Tile : MonoBehaviour
 
     void Start()
     {
-        
+        tileRenderer.material.color = Random.ColorHSV();
     }
 
     void Update()
