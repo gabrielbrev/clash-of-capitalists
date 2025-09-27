@@ -1354,9 +1354,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   board: {fileID: 1212380106}
-  uiManager: {fileID: 1551375929}
+  canvasTransform: {fileID: 0}
   playerPrefab: {fileID: 5942042273015882482, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
-  numPlayers: 4
+  numPlayers: 6
 --- !u!4 &1742337211
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class OrbitCamera : MonoBehaviour
@@ -38,6 +39,8 @@ public class OrbitCamera : MonoBehaviour
 
     private void HandleMouseDrag()
     {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+
         mousePos = Mouse.current.position.ReadValue();
         
         if (Mouse.current.leftButton.isPressed)
@@ -46,7 +49,6 @@ public class OrbitCamera : MonoBehaviour
             float direction;
 
             mouseDelta = mousePos - lastMousePos;
-            Debug.Log($"{mousePos} {lastMousePos} {mouseDelta}");
 
             // Decide a direção que a rotação vai acontecer dependendo do movimento e da posição do mouse
             if (Math.Abs(mouseDelta.x) > Math.Abs(mouseDelta.y))

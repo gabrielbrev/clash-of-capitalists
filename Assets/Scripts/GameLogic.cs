@@ -5,12 +5,13 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     private static readonly WaitForSeconds _waitForSeconds0_75 = new(0.75f);
-    private static readonly WaitForSeconds _waitForSeconds1_25 = new(1.25f);
     [SerializeField] private Board board;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int numPlayers; // Temporario, deverá ser setado pelo menu futuramente
     private readonly List<Player> players = new();
     private int currRound = 0;
+    
 
     private IEnumerator InitializePlayers()
     {
@@ -23,6 +24,7 @@ public class GameLogic : MonoBehaviour
             GameObject playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             Player player = playerObject.GetComponent<Player>();
 
+            player.name = $"Jogador {i + 1}";
             player.transform.parent = board.transform;
             player.MoveTo(startTile);
 
@@ -32,12 +34,15 @@ public class GameLogic : MonoBehaviour
 
     private IEnumerator PlayRound()
     {
-        yield return _waitForSeconds1_25;
-        
         Player player = players[currRound % players.Count];
 
+        uiManager.SetPlayerPanel(player.GetPanel());
+
+        int diceResult = 0;
+        yield return player.OptRollDice((result) => diceResult = result);
+
         int currIndex = player.GetIndex();
-        int nextIndex = currIndex + Random.Range(1, 6);
+        int nextIndex = currIndex + diceResult;
 
         for (int i = currIndex + 1; i <= nextIndex; i++)
         {
