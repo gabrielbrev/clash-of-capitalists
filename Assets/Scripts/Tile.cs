@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,9 +65,9 @@ public abstract class Tile : MonoBehaviour
         }
     }
 
-    public abstract void PassBy(Player player);
+    public abstract IEnumerator PassBy(Player player);
 
-    public abstract void Visit(Player player);
+    public abstract IEnumerator Visit(Player player);
 
     void Awake()
     {

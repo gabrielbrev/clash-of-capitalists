@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int balance;
     private PlayerPanel panel;
     private int index;
+    private int prisonTime;
     private Tile currTile;
 
     private Renderer playerRenderer;
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
     private void UpdatePanel()
     {
         panel.SetInfo(
-            $"{name}\n$ {balance},00\nPosição {index}"
+            $"{name}\n$ {balance},00\nPosição {index}\nTempo de prisão: {prisonTime}"
         );
     }
 
@@ -65,14 +66,24 @@ public class Player : MonoBehaviour
         return panel;
     }
 
-    public IEnumerator OptRollDice(System.Action<int> callback)
+    public int GetPrisonRounds()
+    {
+        return prisonTime;
+    }
+
+    public void SetPrisonRounds(int num)
+    {
+        prisonTime = num;
+    }
+
+    public IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
     {
         bool clicked = false;
-        int result = 0;
+        (int, int) result = (0, 0);
 
         panel.SetRollButtonAction(() =>
         {
-            result = Random.Range(1, 7);
+            result = (Random.Range(1, 7), Random.Range(1, 7));
             clicked = true;
         });
 
@@ -83,7 +94,14 @@ public class Player : MonoBehaviour
         panel.SetRoolButtonInteractable(false);
         StartCoroutine(panel.SetDiceResult(result));
 
-        callback.Invoke(result);
+        if (result.Item1 == result.Item2) prisonTime = 0;
+
+        callback.Invoke((
+            prisonTime > 0 ? 0 : result.Item1 + result.Item2,
+            result.Item1 == result.Item2
+        ));
+        
+        if (prisonTime > 0) prisonTime--;
     }
 
     void Awake()

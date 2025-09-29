@@ -39,7 +39,8 @@ public class GameLogic : MonoBehaviour
         uiManager.SetPlayerPanel(player.GetPanel());
 
         int diceResult = 0;
-        yield return player.OptRollDice((result) => diceResult = result);
+        bool repeatPlayer = false;
+        yield return player.OptRollDice((result) => (diceResult, repeatPlayer) = result);
 
         int currIndex = player.GetIndex();
         int nextIndex = currIndex + diceResult;
@@ -52,17 +53,17 @@ public class GameLogic : MonoBehaviour
 
             if (i != nextIndex)
             {
-                tile.PassBy(player);
+                yield return tile.PassBy(player);
             }
             else
             {
-                tile.Visit(player);
+                yield return tile.Visit(player);
             }
 
             yield return _waitForSeconds0_75;
         }
 
-        currRound += 1;
+        if (!repeatPlayer) currRound += 1;
     }
 
     private IEnumerator StartGame()

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class StartTile : Tile
@@ -9,13 +10,15 @@ public class StartTile : Tile
         player.AddBalance(bonusAmount);
     }
 
-    public override void PassBy(Player player)
+    public override IEnumerator PassBy(Player player)
     {
         GiveBonus(player);
+        yield break;
     }
 
-    public override void Visit(Player player)
+    public override IEnumerator Visit(Player player)
     {
         GiveBonus(player);
+        yield break;
     }
 }

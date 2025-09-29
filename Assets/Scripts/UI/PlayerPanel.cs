@@ -25,12 +25,12 @@ public class PlayerPanel : MonoBehaviour
         rollButtonAction += action;
     }
 
-    public IEnumerator SetDiceResult(int value)
+    public IEnumerator SetDiceResult((int, int) result)
     {
-        diceResultText.text = value.ToString();
+        diceResultText.text = result.ToString();
         diceResultText.enabled = true;
 
-        yield return new WaitForSeconds(value);
+        yield return new WaitForSeconds(result.Item1 + result.Item2);
 
         diceResultText.enabled = false;
     }
