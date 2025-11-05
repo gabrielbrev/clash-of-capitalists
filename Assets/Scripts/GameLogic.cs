@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     private static readonly WaitForSeconds _waitForSeconds0_75 = new(0.75f);
+    private static readonly WaitForSeconds _waitForSeconds1_5 = new(1.5f);
     [SerializeField] private Board board;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject playerPrefab;
@@ -27,6 +28,7 @@ public class GameLogic : MonoBehaviour
             player.name = $"Jogador {i + 1}";
             player.transform.parent = board.transform;
             player.MoveTo(startTile);
+            player.AddBalance(200000);
 
             players.Add(player);
         }
@@ -64,6 +66,8 @@ public class GameLogic : MonoBehaviour
         }
 
         if (!repeatPlayer) currRound += 1;
+
+        yield return _waitForSeconds1_5;
     }
 
     private IEnumerator StartGame()

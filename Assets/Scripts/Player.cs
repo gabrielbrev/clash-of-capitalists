@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     private int index;
     private int prisonTime;
     private Tile currTile;
+    private List<PropertyTile> properties = new();
 
     private Renderer playerRenderer;
     private CapsuleCollider playerCollider;
@@ -55,10 +57,27 @@ public class Player : MonoBehaviour
         balance += amount;
     }
 
-    public void SubtractBalance(int amount)
+    public IEnumerator SubtractBalance(int amount)
     {
+        if (balance < amount)
+        {
+            
+        }
         // TODO: Adicionar regra para vender propriedade ou falir ao tentar subtrair um valor maior do que o saldo
         balance -= amount;
+        yield break;
+    }
+
+    public int GetNetWorth()
+    {
+        int propertyPrices = 0;
+
+        foreach (PropertyTile property in properties)
+        {
+            propertyPrices += property.GetSellPrice();
+        }
+
+        return balance + propertyPrices;
     }
 
     public PlayerPanel GetPanel()
@@ -78,20 +97,13 @@ public class Player : MonoBehaviour
 
     public IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
     {
-        bool clicked = false;
         (int, int) result = (0, 0);
 
-        panel.SetRollButtonAction(() =>
+        yield return panel.RollDiceSequence((d1, d2) =>
         {
-            result = (Random.Range(1, 7), Random.Range(1, 7));
-            clicked = true;
+            result = (d1, d2);
         });
 
-        panel.SetRoolButtonInteractable(true);
-
-        yield return new WaitUntil(() => clicked);
-
-        panel.SetRoolButtonInteractable(false);
         StartCoroutine(panel.SetDiceResult(result));
 
         if (result.Item1 == result.Item2) prisonTime = 0;
@@ -100,8 +112,38 @@ public class Player : MonoBehaviour
             prisonTime > 0 ? 0 : result.Item1 + result.Item2,
             result.Item1 == result.Item2
         ));
-        
+
         if (prisonTime > 0) prisonTime--;
+    }
+
+    public IEnumerator OptBuyProperty(PropertyTile property)
+    {
+        int sellPrice = property.GetSellPrice();
+        if (sellPrice > balance) yield break;
+
+        bool buy = false; // Initialize with any value bcs of type checking
+
+        yield return panel.BuyPropertySequence(sellPrice, (decision) => buy = decision);
+
+        if (buy) {
+            yield return property.Buy(this);
+            properties.Add(property);
+        }
+    }
+
+    public IEnumerator OptBuildHouse(PropertyTile property)
+    {
+        yield break;
+    }
+
+    public IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> onSelect)
+    {
+        yield break;
+    }
+
+    public IEnumerator OptSellProperty()
+    {
+        yield break;
     }
 
     void Awake()

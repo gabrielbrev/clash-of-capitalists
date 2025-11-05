@@ -5,47 +5,54 @@ using UnityEngine.UI;
 
 public class PlayerPanel : MonoBehaviour
 {
+    private static readonly WaitForSeconds _waitForSeconds1_5 = new(1.5f);
     [SerializeField] Text infoText;
     [SerializeField] Text diceResultText;
-    [SerializeField] Button rollButton;
-    private Action rollButtonAction;
+    [SerializeField] private RollDicePanel rollDicePanel;
+    [SerializeField] private BuyPropertyPanel buyPropertyPanel;
+
     public void SetInfo(string text)
     {
         infoText.text = text;
     }
 
-    public void SetRoolButtonInteractable(bool interactable)
+    public IEnumerator RollDiceSequence(Action<int, int> callback)
     {
-        rollButton.interactable = interactable;
+        rollDicePanel.Show();
+
+        yield return rollDicePanel.WaitForDiceRoll(callback);
+
+        rollDicePanel.Hide();
     }
 
-    public void SetRollButtonAction(Action action)
+    public IEnumerator BuyPropertySequence(int propertyValue, Action<bool> callback)
     {
-        rollButtonAction = null;
-        rollButtonAction += action;
+        buyPropertyPanel.Show();
+
+        buyPropertyPanel.SetPropertyValue(propertyValue);
+        yield return buyPropertyPanel.WaitForDecision(callback);
+
+        buyPropertyPanel.Hide();
     }
 
     public IEnumerator SetDiceResult((int, int) result)
     {
-        diceResultText.text = result.ToString();
+        diceResultText.text = $"{result.Item1} + {result.Item2} = {result.Item1 + result.Item2}";
         diceResultText.enabled = true;
 
-        yield return new WaitForSeconds(result.Item1 + result.Item2);
+        yield return _waitForSeconds1_5;
 
         diceResultText.enabled = false;
+    }
+
+    void Awake()
+    {
+        rollDicePanel.Hide();
+        buyPropertyPanel.Hide();
     }
 
     void Start()
     {
-        rollButton.onClick.AddListener(() =>
-        {
-            rollButtonAction?.Invoke();
-        });
         diceResultText.enabled = false;
-    }
-
-    void Update()
-    {
-
     }
 }
