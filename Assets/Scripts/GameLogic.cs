@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour
 {
-    private static readonly WaitForSeconds _waitForSeconds0_75 = new(0.75f);
-    private static readonly WaitForSeconds _waitForSeconds1_5 = new(1.5f);
+    private static readonly WaitForSeconds _waitForSeconds1 = new(1f);
+    private static readonly WaitForSeconds _waitForSeconds3 = new(3f);
+    private static readonly WaitForSeconds _movementDelay = new(0.5f);
     [SerializeField] private Board board;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject playerAiPrefab;
     [SerializeField] private int numPlayers; // Temporario, deverá ser setado pelo menu futuramente
+    [SerializeField] private int numAiPlayers;
     private readonly List<Player> players = new();
     private int currRound = 0;
     
@@ -20,18 +23,21 @@ public class GameLogic : MonoBehaviour
 
         Tile startTile = board.GetTile(0);
 
-        for (int i = 0; i < numPlayers; i++)
+        for (int i = 0; i < numPlayers + numAiPlayers; i++)
         {
-            GameObject playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            bool isAI = i >= numPlayers;
+            GameObject playerObject = Instantiate(isAI ? playerAiPrefab : playerPrefab, Vector3.zero, Quaternion.identity);
             Player player = playerObject.GetComponent<Player>();
 
-            player.name = $"Jogador {i + 1}";
+            player.name = $"Jogador {i + 1}{(isAI ? " (AI)" : "")}";
             player.transform.parent = board.transform;
             player.MoveTo(startTile);
             player.AddBalance(200000);
 
             players.Add(player);
         }
+
+        yield return _waitForSeconds3;
     }
 
     private IEnumerator PlayRound()
@@ -62,12 +68,12 @@ public class GameLogic : MonoBehaviour
                 yield return tile.Visit(player);
             }
 
-            yield return _waitForSeconds0_75;
+            yield return _movementDelay;
         }
 
         if (!repeatPlayer) currRound += 1;
 
-        yield return _waitForSeconds1_5;
+        yield return _waitForSeconds1;
     }
 
     private IEnumerator StartGame()

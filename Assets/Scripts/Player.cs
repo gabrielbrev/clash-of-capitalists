@@ -8,12 +8,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject panelPrefab;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private int balance;
+    [SerializeField] protected int balance;
     private PlayerPanel panel;
     private int index;
     private int prisonTime;
     private Tile currTile;
-    private List<PropertyTile> properties = new();
+    private readonly List<PropertyTile> properties = new();
 
     private Renderer playerRenderer;
     private CapsuleCollider playerCollider;
@@ -29,8 +29,28 @@ public class Player : MonoBehaviour
     private void UpdatePanel()
     {
         panel.SetInfo(
-            $"{name}\n{balance:C}\nPosição {index}\nTempo de prisão: {prisonTime}"
+            $"{name}\n{balance:C}\nPosição {index}\n{(prisonTime > 0 ? $"Tempo de prisão: {prisonTime}" : "")}"
         );
+    }
+
+    protected void HandleDiceResult((int, int) result, System.Action<(int result, bool equalValues)> callback)
+    {
+        StartCoroutine(panel.SetDiceResult(result));
+
+        if (result.Item1 == result.Item2) prisonTime = 0;
+
+        callback.Invoke((
+            prisonTime > 0 ? 0 : result.Item1 + result.Item2,
+            result.Item1 == result.Item2
+        ));
+
+        if (prisonTime > 0) prisonTime--;
+    }
+
+    protected IEnumerator BuyProperty(PropertyTile property)
+    {
+        yield return property.Buy(this);
+        properties.Add(property);
     }
 
     public int GetIndex()
@@ -97,7 +117,7 @@ public class Player : MonoBehaviour
         prisonTime = num;
     }
 
-    public IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
+    public virtual IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
     {
         (int, int) result = (0, 0);
 
@@ -106,19 +126,10 @@ public class Player : MonoBehaviour
             result = (d1, d2);
         });
 
-        StartCoroutine(panel.SetDiceResult(result));
-
-        if (result.Item1 == result.Item2) prisonTime = 0;
-
-        callback.Invoke((
-            prisonTime > 0 ? 0 : result.Item1 + result.Item2,
-            result.Item1 == result.Item2
-        ));
-
-        if (prisonTime > 0) prisonTime--;
+        HandleDiceResult(result, callback);
     }
 
-    public IEnumerator OptBuyProperty(PropertyTile property)
+    public virtual IEnumerator OptBuyProperty(PropertyTile property)
     {
         int sellPrice = property.GetSellPrice();
         if (sellPrice > balance) yield break;
@@ -127,23 +138,20 @@ public class Player : MonoBehaviour
 
         yield return panel.BuyPropertySequence(sellPrice, (decision) => buy = decision);
 
-        if (buy) {
-            yield return property.Buy(this);
-            properties.Add(property);
-        }
+        if (buy) yield return BuyProperty(property);
     }
 
-    public IEnumerator OptBuildHouse(PropertyTile property)
+    public virtual IEnumerator OptBuildHouse(PropertyTile property)
     {
         yield break;
     }
 
-    public IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> onSelect)
+    public virtual IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> onSelect)
     {
         yield break;
     }
 
-    public IEnumerator OptSellProperty()
+    public virtual IEnumerator OptSellProperty()
     {
         yield break;
     }

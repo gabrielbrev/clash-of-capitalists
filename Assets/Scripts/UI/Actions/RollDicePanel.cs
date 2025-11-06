@@ -7,18 +7,13 @@ public class RollDicePanel : ActionPanel
 {
     [SerializeField] Button button;
 
-    private (int, int) RollDice()
-    {
-        return (UnityEngine.Random.Range(1, 7), UnityEngine.Random.Range(1, 7));
-    }
-
     public IEnumerator WaitForDiceRoll(Action<int, int> onDiceRoll)
     {
         bool clicked = false;
 
         void action()
         {
-            var (d1, d2) = RollDice();
+            var (d1, d2) = Dice.Roll();
             onDiceRoll?.Invoke(d1, d2);
             clicked = true;
         }
