@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     private void UpdatePanel()
     {
         panel.SetInfo(
-            $"{name}\n$ {balance},00\nPosição {index}\nTempo de prisão: {prisonTime}"
+            $"{name}\n{balance:C}\nPosição {index}\nTempo de prisão: {prisonTime}"
         );
     }
 
@@ -55,16 +55,18 @@ public class Player : MonoBehaviour
     public void AddBalance(int amount)
     {
         balance += amount;
+        panel.SetBalanceText(amount);
     }
 
     public IEnumerator SubtractBalance(int amount)
     {
         if (balance < amount)
         {
-            
+            // TODO: Adicionar regra para vender propriedade ou falir ao tentar subtrair um valor maior do que o saldo
         }
-        // TODO: Adicionar regra para vender propriedade ou falir ao tentar subtrair um valor maior do que o saldo
+        
         balance -= amount;
+        panel.SetBalanceText(-amount);
         yield break;
     }
 

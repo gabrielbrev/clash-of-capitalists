@@ -67,7 +67,7 @@ public class PropertyTile : Tile
     public int GetRentPrice()
     {
         int sellPrice = GetSellPrice();
-        return (int)(sellPrice * 0.35);
+        return (int)(sellPrice * 0.075);
     }
 
 
@@ -88,7 +88,9 @@ public class PropertyTile : Tile
         }
         else
         {
-            yield return player.SubtractBalance(GetRentPrice());
+            int rentPrice = GetRentPrice();
+            yield return player.SubtractBalance(rentPrice);
+            owner.AddBalance(rentPrice);
         }
         
         yield break;

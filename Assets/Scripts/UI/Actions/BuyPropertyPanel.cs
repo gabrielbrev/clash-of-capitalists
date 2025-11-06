@@ -11,7 +11,7 @@ public class BuyPropertyPanel : ActionPanel
 
     public void SetPropertyValue(int value)
     {
-        questionText.text = $"Deseja comprar essa propriedade por R$ {value:F2}?";   
+        questionText.text = $"Deseja comprar essa propriedade por {value:C}?";   
     }
 
     public IEnumerator WaitForDecision(Action<bool> onDecision)

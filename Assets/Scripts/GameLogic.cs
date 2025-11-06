@@ -84,6 +84,11 @@ public class GameLogic : MonoBehaviour
         yield return StartCoroutine(StartGame());
     }
 
+    void Awake()
+    {
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
+    }
+
     void Start()
     {
         StartCoroutine(InitializeAndStartGame());
