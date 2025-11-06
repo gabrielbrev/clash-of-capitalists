@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -25,12 +24,13 @@ public class Board : MonoBehaviour
     {
         float tileSizeX = tileRenderer.bounds.size.x;
         float tileSizeZ = tileRenderer.bounds.size.z;
+        float angleToFaceCenter = 90f * (Mathf.Floor(tile.GetIndex() / (float)(rows - 1)) - 1);
 
-        tile.transform.position = new(
+        tile.transform.SetPositionAndRotation(new(
             boardRenderer.bounds.min.x + position.x * tileSizeX + tileSizeX / 2,
             transform.position.y + 0.01f,
             boardRenderer.bounds.min.z + position.y * tileSizeZ + tileSizeZ / 2
-        );
+        ), Quaternion.Euler(0f, angleToFaceCenter, 0f));
     }
 
     public void InitTiles()
