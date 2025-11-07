@@ -7,7 +7,7 @@ public abstract class Tile : MonoBehaviour
 {
     private int index;
     private readonly List<Player> players = new();
-    private Renderer tileRenderer;
+    protected Renderer tileRenderer;
     protected bool selectable;
 
     public int GetIndex()
@@ -74,13 +74,8 @@ public abstract class Tile : MonoBehaviour
         tileRenderer = GetComponent<Renderer>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         if (tileRenderer.material.mainTexture == null) tileRenderer.material.color = Random.ColorHSV();
-    }
-
-    void Update()
-    {
-        
     }
 }

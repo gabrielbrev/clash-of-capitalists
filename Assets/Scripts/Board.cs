@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
     [SerializeField] private int rows;
     [SerializeField] private int cols;
     [SerializeField] private Tile[] tiles;
+    [SerializeField] private Monopoly[] monopolies;
     private Renderer boardRenderer;
 
     private bool IsCorner(Vector2Int vec)

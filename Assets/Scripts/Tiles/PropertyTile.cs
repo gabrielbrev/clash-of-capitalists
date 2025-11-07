@@ -1,13 +1,17 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PropertyTile : Tile
 {
-    // [SerializeField] private Monopoly monopoly;
+    [SerializeField] private GameObject colorPlane;
+    [SerializeField] private TextMeshPro headerText;
+    [SerializeField] private TextMeshPro bodyText;
     [SerializeField] private string propertyName;
     [SerializeField] private int basePrice;
     private Player owner;
     private int numHouses;
+    private Monopoly monopoly;
 
     public bool IsOwner(Player player)
     {
@@ -41,6 +45,11 @@ public class PropertyTile : Tile
 
         yield return owner.SubtractBalance(buildPrice);
         numHouses += 1;
+    }
+
+    public void SetMonopoly(Monopoly monopoly)
+    {
+        this.monopoly = monopoly;
     }
     
     public int GetHousePrice()
@@ -92,7 +101,23 @@ public class PropertyTile : Tile
             yield return player.SubtractBalance(rentPrice);
             owner.AddBalance(rentPrice);
         }
-        
+
         yield break;
+    }
+
+    override protected void Start()
+    {
+        base.Start();
+        if (monopoly)
+        {
+            Renderer renderer = colorPlane.GetComponent<Renderer>();
+            renderer.material.color = monopoly.GetColor();
+        }
+    }
+
+    void Update()
+    {
+        headerText.text = propertyName;
+        bodyText.text = !owner ? $"Compra:\nR$ {GetBasePrice() / 1000f:F1}k" : $"Aluguel:\nR$ {GetRentPrice() / 1000f:F1}k";
     }
 }

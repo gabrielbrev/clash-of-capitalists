@@ -61,6 +61,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6931647915071165661}
   m_SourcePrefab: {fileID: 100100000, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
+--- !u!23 &3383653816819427007 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 934762306975217773, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
+  m_PrefabInstance: {fileID: 2453853103594938066}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8105223216717593632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5942042273015882482, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
@@ -78,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bdc33a18b0c42b280e04c2842cc702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAI
+  modelRenderer: {fileID: 3383653816819427007}
   panelPrefab: {fileID: 4599215680689850885, guid: f38583fdedb4a4b70a34acb2bd623caa, type: 3}
   moveSpeed: 7.5
   balance: 0
