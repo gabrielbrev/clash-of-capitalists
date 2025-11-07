@@ -914,7 +914,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a558bdd90a3f34e328742799357bdb54, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1198,9 +1198,9 @@ MonoBehaviour:
   board: {fileID: 1212380106}
   uiManager: {fileID: 1551375929}
   playerPrefab: {fileID: 5942042273015882482, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
-  playerAiPrefab: {fileID: 0}
-  numPlayers: 4
-  numAiPlayers: 0
+  playerAiPrefab: {fileID: 8105223216717593632, guid: cb49ccd4109f549889d875035f0d29d1, type: 3}
+  numPlayers: 0
+  numAiPlayers: 4
 --- !u!4 &1742337211
 Transform:
   m_ObjectHideFlags: 0

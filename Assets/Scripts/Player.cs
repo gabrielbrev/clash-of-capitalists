@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
+    public Renderer modelRenderer;
     [SerializeField] private GameObject panelPrefab;
     [SerializeField] private float moveSpeed;
     [SerializeField] protected int balance;
@@ -159,7 +159,6 @@ public class Player : MonoBehaviour
     void Awake()
     {
         playerCollider = GetComponent<CapsuleCollider>();
-        playerRenderer = GetComponent<Renderer>();
 
         GameObject panelObj = Instantiate(panelPrefab);
         panel = panelObj.GetComponent<PlayerPanel>();
@@ -167,7 +166,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        playerRenderer.material.color = Random.ColorHSV();
+        modelRenderer.material.color = Random.ColorHSV();
     }
 
     void Update()
