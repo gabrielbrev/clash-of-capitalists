@@ -47,9 +47,8 @@ public class Player : MonoBehaviour
         if (prisonTime > 0) prisonTime--;
     }
 
-    protected IEnumerator BuyProperty(PropertyTile property)
+    public void AddProperty(PropertyTile property)
     {
-        yield return property.Buy(this);
         properties.Add(property);
     }
 
@@ -134,31 +133,32 @@ public class Player : MonoBehaviour
         HandleDiceResult(result, callback);
     }
 
-    public virtual IEnumerator OptBuyProperty(PropertyTile property)
+    public virtual IEnumerator OptBuyProperty(PropertyTile property, System.Action<bool> callback)
     {
         int sellPrice = property.GetSellPrice();
-        if (sellPrice > balance) yield break;
+        if (sellPrice > balance)
+        {
+            callback.Invoke(false);
+            yield break;
+        }
 
-        bool buy = false; // Initialize with any value bcs of type checking
-
-        yield return panel.BuyPropertySequence(sellPrice, (decision) => buy = decision);
-
-        if (buy) yield return BuyProperty(property);
+        yield return panel.BuyPropertySequence(sellPrice, callback);
     }
 
-    public virtual IEnumerator OptBuildHouse(PropertyTile property)
+    public virtual IEnumerator OptBuildHouse(PropertyTile property, System.Action<bool> callback)
     {
         int housePrice = property.GetHousePrice();
-        if (housePrice > balance) yield break;
+        if (housePrice > balance)
+        {
+            callback.Invoke(false);
+            yield break;
+        }
 
-        bool build = false; // Initialize with any value bcs of type checking
 
-        yield return panel.BuildHouseSequence(housePrice, (decision) => build = decision);
-
-        if (build) yield return property.BuildHouse();
+        yield return panel.BuildHouseSequence(housePrice, callback);
     }
 
-    public virtual IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> onSelect)
+    public virtual IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> callback)
     {
         yield break;
     }

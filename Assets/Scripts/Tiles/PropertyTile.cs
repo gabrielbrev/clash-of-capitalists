@@ -99,13 +99,19 @@ public class PropertyTile : Tile
     {
         if (!owner)
         {
-            yield return player.OptBuyProperty(this);
+            yield return player.OptBuyProperty(this, (buy) =>
+            {
+                if (buy) StartCoroutine(Buy(player));
+            });
         }
         else if (player == owner)
         {
             if (!monopoly || (monopoly.IsMonopolyOwner(player) && numHouses < MAX_HOUSES))
             {
-                yield return player.OptBuildHouse(this);
+                yield return player.OptBuildHouse(this, (build) =>
+                {
+                    if (build) StartCoroutine(BuildHouse());
+                });
             }
         }
         else

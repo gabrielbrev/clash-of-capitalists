@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,19 +13,17 @@ public class PlayerAI : Player
         yield break;
     }
 
-    public override IEnumerator OptBuyProperty(PropertyTile property)
+    public override IEnumerator OptBuyProperty(PropertyTile property, Action<bool> callback)
     {
         yield return _waitForSeconds1;
         int sellPrice = property.GetSellPrice();
-        if (sellPrice > balance * 0.85) yield break;
-        else yield return BuyProperty(property);
+        callback.Invoke(sellPrice <= balance * 0.85);
     }
 
-    public override IEnumerator OptBuildHouse(PropertyTile property)
+    public override IEnumerator OptBuildHouse(PropertyTile property, Action<bool> callback)
     {
         yield return _waitForSeconds1;
         int buildPrice = property.GetSellPrice();
-        if (buildPrice > balance * 0.4) yield break;
-        else yield return property.BuildHouse();
+        callback.Invoke(buildPrice <= balance * 0.4);
     }
 }
