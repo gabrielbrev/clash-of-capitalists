@@ -7,9 +7,9 @@ public class PlayerPanel : MonoBehaviour
 {
     private static readonly WaitForSeconds _waitForSeconds1_5 = new(1.5f);
     private Vector2 _balanceInitialPosition;
-    [SerializeField] Text infoText;
-    [SerializeField] Text diceResultText;
-    [SerializeField] Text balanceText;
+    [SerializeField] private Text infoText;
+    [SerializeField] private Text diceResultText;
+    [SerializeField] private Text balanceText;
     [SerializeField] private RollDicePanel rollDicePanel;
     [SerializeField] private DecisionPanel decisionPanel;
 
