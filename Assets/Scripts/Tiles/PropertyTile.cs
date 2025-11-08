@@ -106,7 +106,7 @@ public class PropertyTile : Tile
         }
         else if (player == owner)
         {
-            if (!monopoly || (monopoly.IsMonopolyOwner(player) && numHouses < MAX_HOUSES))
+            if ((!monopoly || monopoly.IsMonopolyOwner(player)) && numHouses < MAX_HOUSES)
             {
                 yield return player.OptBuildHouse(this, (build) =>
                 {
