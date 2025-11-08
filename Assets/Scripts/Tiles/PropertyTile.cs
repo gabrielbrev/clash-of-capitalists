@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PropertyTile : Tile
 {
+    private static readonly int MAX_HOUSES = 4;
+    [SerializeField] private GameObject[] houses;
     [SerializeField] private GameObject colorPlane;
     [SerializeField] private TextMeshPro headerText;
     [SerializeField] private TextMeshPro bodyText;
@@ -45,6 +47,14 @@ public class PropertyTile : Tile
 
         yield return owner.SubtractBalance(buildPrice);
         numHouses += 1;
+
+        for (int i = 0; i < numHouses; i++)
+        {
+            GameObject house = houses[i];
+            Renderer renderer = house.GetComponent<Renderer>();
+            renderer.material.color = owner.GetColor();
+            house.SetActive(true);
+        }
     }
 
     public void SetMonopoly(Monopoly monopoly)
@@ -54,7 +64,7 @@ public class PropertyTile : Tile
     
     public int GetHousePrice()
     {
-        return (int)(basePrice * (0.2 + numHouses * 0.025));
+        return (int)(basePrice * (0.2 + numHouses * 0.15));
     }
 
     public int GetBasePrice()
@@ -65,7 +75,7 @@ public class PropertyTile : Tile
     public int GetSellPrice()
     {
         float summedBasePrices = basePrice + numHouses * GetHousePrice();
-        return (int)(owner ? summedBasePrices * 1.3 : summedBasePrices);
+        return (int)(owner ? summedBasePrices * 1.5 : summedBasePrices);
     }
 
     public int GetNumHouses()
@@ -76,7 +86,7 @@ public class PropertyTile : Tile
     public int GetRentPrice()
     {
         int sellPrice = GetSellPrice();
-        return (int)(sellPrice * 0.075);
+        return (int)(sellPrice * 0.095);
     }
 
 
@@ -93,7 +103,10 @@ public class PropertyTile : Tile
         }
         else if (player == owner)
         {
-            yield return player.OptBuildHouse(this);
+            if (!monopoly || (monopoly.IsMonopolyOwner(player) && numHouses < MAX_HOUSES))
+            {
+                yield return player.OptBuildHouse(this);
+            }
         }
         else
         {
@@ -108,10 +121,16 @@ public class PropertyTile : Tile
     override protected void Start()
     {
         base.Start();
+
         if (monopoly)
         {
             Renderer renderer = colorPlane.GetComponent<Renderer>();
             renderer.material.color = monopoly.GetColor();
+        }
+
+        foreach (GameObject house in houses)
+        {
+            house.SetActive(false);
         }
     }
 

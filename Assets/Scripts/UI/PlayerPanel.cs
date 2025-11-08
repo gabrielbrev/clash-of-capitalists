@@ -12,6 +12,7 @@ public class PlayerPanel : MonoBehaviour
     [SerializeField] Text balanceText;
     [SerializeField] private RollDicePanel rollDicePanel;
     [SerializeField] private BuyPropertyPanel buyPropertyPanel;
+    [SerializeField] private BuildHousePanel buildHousePanel;
 
     private IEnumerator AnimateBalanceText()
     {
@@ -72,10 +73,21 @@ public class PlayerPanel : MonoBehaviour
         buyPropertyPanel.Hide();
     }
 
+    public IEnumerator BuildHouseSequence(int houseValue, Action<bool> callback)
+    {
+        buildHousePanel.Show();
+
+        buildHousePanel.SetHouseValue(houseValue);
+        yield return buildHousePanel.WaitForDecision(callback);
+
+        buildHousePanel.Hide();
+    }
+
     void Awake()
     {
         rollDicePanel.Hide();
         buyPropertyPanel.Hide();
+        buildHousePanel.Hide();
         _balanceInitialPosition = balanceText.rectTransform.anchoredPosition;
     }
 

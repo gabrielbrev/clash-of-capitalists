@@ -117,6 +117,11 @@ public class Player : MonoBehaviour
         prisonTime = num;
     }
 
+    public Color GetColor()
+    {
+        return modelRenderer.material.color;
+    }
+
     public virtual IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
     {
         (int, int) result = (0, 0);
@@ -143,7 +148,14 @@ public class Player : MonoBehaviour
 
     public virtual IEnumerator OptBuildHouse(PropertyTile property)
     {
-        yield break;
+        int housePrice = property.GetHousePrice();
+        if (housePrice > balance) yield break;
+
+        bool build = false; // Initialize with any value bcs of type checking
+
+        yield return panel.BuildHouseSequence(housePrice, (decision) => build = decision);
+
+        if (build) yield return property.BuildHouse();
     }
 
     public virtual IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> onSelect)

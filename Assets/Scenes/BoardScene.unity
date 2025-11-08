@@ -293,6 +293,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2678279520579388423, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5526643360165137064, guid: d7da764b015494948a926f057fb6329f, type: 3}
       propertyPath: m_Name
       value: PropertyTile (2)
@@ -340,7 +344,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1770544253797583090, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8862666770561521814, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d7da764b015494948a926f057fb6329f, type: 3}
 --- !u!1 &410087039
 GameObject:
@@ -545,6 +555,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2678279520579388423, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5526643360165137064, guid: d7da764b015494948a926f057fb6329f, type: 3}
       propertyPath: m_Name
       value: PropertyTile (4)
@@ -592,7 +606,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1770544253797583090, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8862666770561521814, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d7da764b015494948a926f057fb6329f, type: 3}
 --- !u!1001 &734850139
 PrefabInstance:
@@ -602,6 +622,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2678279520579388423, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5526643360165137064, guid: d7da764b015494948a926f057fb6329f, type: 3}
       propertyPath: m_Name
       value: PropertyTile (3)
@@ -649,7 +673,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1770544253797583090, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8862666770561521814, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d7da764b015494948a926f057fb6329f, type: 3}
 --- !u!1 &832575517
 GameObject:
@@ -708,6 +738,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2678279520579388423, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5526643360165137064, guid: d7da764b015494948a926f057fb6329f, type: 3}
       propertyPath: m_Name
       value: PropertyTile
@@ -755,7 +789,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1770544253797583090, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8862666770561521814, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d7da764b015494948a926f057fb6329f, type: 3}
 --- !u!114 &897148825 stripped
 MonoBehaviour:
@@ -1005,6 +1045,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2678279520579388423, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5526643360165137064, guid: d7da764b015494948a926f057fb6329f, type: 3}
       propertyPath: m_Name
       value: PropertyTile (1)
@@ -1052,7 +1096,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1770544253797583090, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8862666770561521814, guid: d7da764b015494948a926f057fb6329f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d7da764b015494948a926f057fb6329f, type: 3}
 --- !u!1 &1551375924
 GameObject:
@@ -1250,8 +1300,8 @@ MonoBehaviour:
   uiManager: {fileID: 1551375929}
   playerPrefab: {fileID: 5942042273015882482, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
   playerAiPrefab: {fileID: 8105223216717593632, guid: cb49ccd4109f549889d875035f0d29d1, type: 3}
-  numPlayers: 1
-  numAiPlayers: 3
+  numPlayers: 0
+  numAiPlayers: 4
 --- !u!4 &1742337211
 Transform:
   m_ObjectHideFlags: 0

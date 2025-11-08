@@ -19,4 +19,12 @@ public class PlayerAI : Player
         if (sellPrice > balance * 0.85) yield break;
         else yield return BuyProperty(property);
     }
+
+    public override IEnumerator OptBuildHouse(PropertyTile property)
+    {
+        yield return _waitForSeconds1;
+        int buildPrice = property.GetSellPrice();
+        if (buildPrice > balance * 0.4) yield break;
+        else yield return property.BuildHouse();
+    }
 }
