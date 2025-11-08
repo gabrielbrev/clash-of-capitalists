@@ -143,6 +143,6 @@ public class PropertyTile : Tile
     void Update()
     {
         headerText.text = propertyName;
-        bodyText.text = !owner ? $"Compra:\nR$ {GetBasePrice() / 1000f:F1}k" : $"Aluguel:\nR$ {GetRentPrice() / 1000f:F1}k";
+        bodyText.text = !owner ? $"À venda:\nR$ {GetBasePrice() / 1000f:F1}k" : $"Aluguel:\nR$ {GetRentPrice() / 1000f:F1}k";
     }
 }

@@ -3,15 +3,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildHousePanel : ActionPanel
+public class DecisionPanel : ActionPanel
 {
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
     [SerializeField] Text questionText;
 
-    public void SetHouseValue(int value)
+    public void SetQuestionText(string text)
     {
-        questionText.text = $"Deseja construir uma casa por {value:C}?";   
+        questionText.text = text;   
     }
 
     public IEnumerator WaitForDecision(Action<bool> onDecision)

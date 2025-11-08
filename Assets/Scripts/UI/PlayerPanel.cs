@@ -11,8 +11,7 @@ public class PlayerPanel : MonoBehaviour
     [SerializeField] Text diceResultText;
     [SerializeField] Text balanceText;
     [SerializeField] private RollDicePanel rollDicePanel;
-    [SerializeField] private BuyPropertyPanel buyPropertyPanel;
-    [SerializeField] private BuildHousePanel buildHousePanel;
+    [SerializeField] private DecisionPanel decisionPanel;
 
     private IEnumerator AnimateBalanceText()
     {
@@ -63,31 +62,30 @@ public class PlayerPanel : MonoBehaviour
         rollDicePanel.Hide();
     }
 
-    public IEnumerator BuyPropertySequence(int propertyValue, Action<bool> callback)
+    public IEnumerator BuyPropertySequence(int propertyPrice, Action<bool> callback)
     {
-        buyPropertyPanel.Show();
+        decisionPanel.Show();
 
-        buyPropertyPanel.SetPropertyValue(propertyValue);
-        yield return buyPropertyPanel.WaitForDecision(callback);
+        decisionPanel.SetQuestionText($"Deseja comprar essa propriedade por {propertyPrice:C}?");
+        yield return decisionPanel.WaitForDecision(callback);
 
-        buyPropertyPanel.Hide();
+        decisionPanel.Hide();
     }
 
-    public IEnumerator BuildHouseSequence(int houseValue, Action<bool> callback)
+    public IEnumerator BuildHouseSequence(int housePrice, Action<bool> callback)
     {
-        buildHousePanel.Show();
+        decisionPanel.Show();
 
-        buildHousePanel.SetHouseValue(houseValue);
-        yield return buildHousePanel.WaitForDecision(callback);
+        decisionPanel.SetQuestionText($"Deseja construir uma casa por {housePrice:C}?");
+        yield return decisionPanel.WaitForDecision(callback);
 
-        buildHousePanel.Hide();
+        decisionPanel.Hide();
     }
 
     void Awake()
     {
         rollDicePanel.Hide();
-        buyPropertyPanel.Hide();
-        buildHousePanel.Hide();
+        decisionPanel.Hide();
         _balanceInitialPosition = balanceText.rectTransform.anchoredPosition;
     }
 
