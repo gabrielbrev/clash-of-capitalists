@@ -1241,7 +1241,7 @@ PrefabInstance:
     - target: {fileID: 240383290277442896, guid: 3bb898bdb48b065499d6a70b27ee487a, type: 3}
       propertyPath: 'cards.Array.data[1]'
       value: 
-      objectReference: {fileID: 1074984646}
+      objectReference: {fileID: 2090967032}
     - target: {fileID: 5526643360165137064, guid: 3bb898bdb48b065499d6a70b27ee487a, type: 3}
       propertyPath: m_Name
       value: ChanceTile
@@ -3522,7 +3522,7 @@ MonoBehaviour:
   uiManager: {fileID: 1551375929}
   playerPrefab: {fileID: 5942042273015882482, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
   playerAiPrefab: {fileID: 8105223216717593632, guid: cb49ccd4109f549889d875035f0d29d1, type: 3}
-  numPlayers: 1
+  numPlayers: 6
   numAiPlayers: 0
 --- !u!4 &1742337211
 Transform:

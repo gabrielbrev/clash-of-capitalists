@@ -6,15 +6,15 @@ public abstract class Card : MonoBehaviour
     [SerializeField] private string cardName;
     [SerializeField] private string description;
 
+    public string GetName()
+    {
+        return cardName;
+    }
+
+    public string GetDescription()
+    {
+        return description;
+    }
+
     public abstract IEnumerator Use(Player player);
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

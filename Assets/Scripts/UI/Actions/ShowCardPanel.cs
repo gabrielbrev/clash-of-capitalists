@@ -6,9 +6,14 @@ using UnityEngine.UI;
 public class ShowCardPanel : ActionPanel
 {
     [SerializeField] Button button;
+    [SerializeField] Text nameText;
+    [SerializeField] Text descriptionText;
 
     public IEnumerator WaitForConfirmation(Card card)
     {
+        nameText.text = card.GetName();
+        descriptionText.text = card.GetDescription();
+
         bool clicked = false;
 
         void action()

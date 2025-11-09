@@ -9,12 +9,13 @@ public class ChanceTile : Tile
 
     public override IEnumerator PassBy(Player player)
     {
-        yield break;
+        yield return Visit(player);
     }
 
     public override IEnumerator Visit(Player player)
     {
         Card randomCard = cards[rng.Next(cards.Length)];
+        yield return player.OptShowCard(randomCard);
         yield return randomCard.Use(player);
     }
 }

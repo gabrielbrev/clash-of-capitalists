@@ -12,6 +12,7 @@ public class PlayerPanel : MonoBehaviour
     [SerializeField] private Text balanceText;
     [SerializeField] private RollDicePanel rollDicePanel;
     [SerializeField] private DecisionPanel decisionPanel;
+    [SerializeField] private ShowCardPanel showCardPanel;
 
     private IEnumerator AnimateBalanceText()
     {
@@ -82,10 +83,20 @@ public class PlayerPanel : MonoBehaviour
         decisionPanel.Hide();
     }
 
+    public IEnumerator ShowCardSequence(Card card)
+    {
+        showCardPanel.Show();
+
+        yield return showCardPanel.WaitForConfirmation(card);
+
+        showCardPanel.Hide();
+    }
+
     void Awake()
     {
         rollDicePanel.Hide();
         decisionPanel.Hide();
+        showCardPanel.Hide();
         _balanceInitialPosition = balanceText.rectTransform.anchoredPosition;
     }
 

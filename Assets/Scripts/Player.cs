@@ -178,7 +178,6 @@ public class Player : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject hoveredObject = hit.collider.gameObject;
-                Debug.Log($"achou: {hit.collider.gameObject.name}");
 
                 foreach (Tile tile in tiles)
                 {
@@ -200,6 +199,11 @@ public class Player : MonoBehaviour
 
         callback.Invoke(chosenTile);
         yield break;
+    }
+
+    public virtual IEnumerator OptShowCard(Card card)
+    {
+        yield return panel.ShowCardSequence(card);
     }
 
     public virtual IEnumerator OptSellProperty()
