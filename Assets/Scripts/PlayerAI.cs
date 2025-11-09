@@ -7,7 +7,7 @@ public class PlayerAI : Player
 {
     private static readonly WaitForSeconds _waitForSeconds1 = new(1f);
 
-    public override IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
+    public override IEnumerator OptRollDice(Action<(int result, bool equalValues)> callback)
     {
         HandleDiceResult(Dice.Roll(), callback);
         yield break;
@@ -25,5 +25,10 @@ public class PlayerAI : Player
         yield return _waitForSeconds1;
         int buildPrice = property.GetSellPrice();
         callback.Invoke(buildPrice <= balance * 0.4);
+    }
+
+    public override IEnumerator OptShowCard(Card card)
+    {
+        yield return panel.ShowCardSequence(card, true);
     }
 }

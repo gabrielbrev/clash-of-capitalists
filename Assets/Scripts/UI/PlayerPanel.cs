@@ -83,11 +83,11 @@ public class PlayerPanel : MonoBehaviour
         decisionPanel.Hide();
     }
 
-    public IEnumerator ShowCardSequence(Card card)
+    public IEnumerator ShowCardSequence(Card card, bool autoclose)
     {
         showCardPanel.Show();
 
-        yield return showCardPanel.WaitForConfirmation(card);
+        yield return showCardPanel.WaitForConfirmation(card, autoclose);
 
         showCardPanel.Hide();
     }

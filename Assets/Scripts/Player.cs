@@ -10,15 +10,13 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject panelPrefab;
     [SerializeField] private float moveSpeed;
     [SerializeField] protected int balance;
-    private PlayerPanel panel;
     private int index;
     private int prisonTime;
     private Tile currTile;
     private readonly List<PropertyTile> properties = new();
-
-    private Renderer playerRenderer;
     private CapsuleCollider playerCollider;
     private Vector3 targetPos;
+    protected PlayerPanel panel;
 
     private void UpdatePosition()
     {
@@ -203,7 +201,7 @@ public class Player : MonoBehaviour
 
     public virtual IEnumerator OptShowCard(Card card)
     {
-        yield return panel.ShowCardSequence(card);
+        yield return panel.ShowCardSequence(card, false);
     }
 
     public virtual IEnumerator OptSellProperty()
