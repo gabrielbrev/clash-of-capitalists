@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
         properties.Add(property);
     }
 
+    public void RemoveProperty(PropertyTile property)
+    {
+        properties.Remove(property);
+    }
+
     public int GetIndex()
     {
         return index;
@@ -95,7 +100,6 @@ public class Player : MonoBehaviour
             yield return OptSelectTile(properties, (chosenTile) =>
             {
                 chosenTile.Sell();
-                properties.Remove(chosenTile);
             });
         }
 
