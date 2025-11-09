@@ -9,7 +9,7 @@ public class ChanceTile : Tile
 
     public override IEnumerator PassBy(Player player)
     {
-        yield return Visit(player);
+        yield break;
     }
 
     public override IEnumerator Visit(Player player)

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
+    private static readonly WaitForSeconds _waitForSeconds5 = new(5f);
     public Renderer modelRenderer;
     [SerializeField] private GameObject panelPrefab;
     [SerializeField] private float moveSpeed;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     private int index;
     private int prisonTime;
     private Tile currTile;
+    private bool bankrupt;
     private readonly List<PropertyTile> properties = new();
     private CapsuleCollider playerCollider;
     private Vector3 targetPos;
@@ -78,10 +80,26 @@ public class Player : MonoBehaviour
 
     public IEnumerator SubtractBalance(int amount)
     {
-        if (balance < amount)
+        while (balance < amount)
         {
-            // TODO: Adicionar regra para vender propriedade ou falir ao tentar subtrair um valor maior do que o saldo
+            if (properties.Count <= 0)
+            {
+                bankrupt = true;
+                panel.SetAlertText("Você faliu.");
+                yield return _waitForSeconds5;
+                yield break;
+            }
+
+            panel.SetAlertText("Você não tem dinheiro suficiente. Escolha uma propriedade para vender.");
+
+            yield return OptSelectTile(properties, (chosenTile) =>
+            {
+                chosenTile.Sell();
+                properties.Remove(chosenTile);
+            });
         }
+
+        panel.SetAlertText("");
         
         balance -= amount;
         panel.SetBalanceText(-amount);
@@ -118,6 +136,11 @@ public class Player : MonoBehaviour
     public Color GetColor()
     {
         return modelRenderer.material.color;
+    }
+
+    public bool IsBankrupt()
+    {
+        return bankrupt;
     }
 
     public virtual IEnumerator OptRollDice(System.Action<(int result, bool equalValues)> callback)
@@ -157,10 +180,10 @@ public class Player : MonoBehaviour
         yield return panel.BuildHouseSequence(housePrice, callback);
     }
 
-    public virtual IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> callback)
+    public virtual IEnumerator OptSelectTile<T>(List<T> tiles, System.Action<T> callback) where T : Tile
     {
         Ray ray;
-        Tile chosenTile = null;
+        T chosenTile = null;
 
         while (true)
         {
@@ -177,7 +200,7 @@ public class Player : MonoBehaviour
             {
                 GameObject hoveredObject = hit.collider.gameObject;
 
-                foreach (Tile tile in tiles)
+                foreach (T tile in tiles)
                 {
                     if (tile.gameObject == hoveredObject)
                     {
@@ -219,6 +242,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        bankrupt = false;
         modelRenderer.material.color = Random.ColorHSV();
     }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -30,5 +31,12 @@ public class PlayerAI : Player
     public override IEnumerator OptShowCard(Card card)
     {
         yield return panel.ShowCardSequence(card, true);
+    }
+
+    public override IEnumerator OptSelectTile<T>(List<T> tiles, Action<T> callback)
+    {
+        System.Random random = new();
+        callback?.Invoke(tiles[random.Next(tiles.Count)]);
+        yield break;
     }
 }

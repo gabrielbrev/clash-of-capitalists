@@ -10,6 +10,7 @@ public class PlayerPanel : MonoBehaviour
     [SerializeField] private Text infoText;
     [SerializeField] private Text diceResultText;
     [SerializeField] private Text balanceText;
+    [SerializeField] private Text alertText;
     [SerializeField] private RollDicePanel rollDicePanel;
     [SerializeField] private DecisionPanel decisionPanel;
     [SerializeField] private ShowCardPanel showCardPanel;
@@ -52,6 +53,18 @@ public class PlayerPanel : MonoBehaviour
     {
         balanceText.text = amount.ToString("C");
         StartCoroutine(AnimateBalanceText());
+    }
+
+    public void SetAlertText(string text) {
+        if (text.Length > 0)
+        {
+            alertText.enabled = true;
+            alertText.text = text;
+        }
+        else
+        {
+            alertText.enabled = false;
+        }
     }
 
     public IEnumerator RollDiceSequence(Action<int, int> callback)
@@ -104,5 +117,6 @@ public class PlayerPanel : MonoBehaviour
     {
         diceResultText.enabled = false;
         balanceText.enabled = false;
+        alertText.enabled = false;
     }
 }

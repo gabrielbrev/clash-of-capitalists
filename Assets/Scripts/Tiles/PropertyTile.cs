@@ -6,6 +6,7 @@ public class PropertyTile : Tile
 {
     private static readonly int MAX_HOUSES = 4;
     [SerializeField] private GameObject[] houses;
+    [SerializeField] private GameObject marker;
     [SerializeField] private GameObject colorPlane;
     [SerializeField] private TextMeshPro headerText;
     [SerializeField] private TextMeshPro bodyText;
@@ -26,6 +27,11 @@ public class PropertyTile : Tile
         if (player.GetNetWorth() < sellPrice) yield break;
 
         yield return player.SubtractBalance(sellPrice);
+
+        Renderer markerRenderer = marker.GetComponent<Renderer>();
+        markerRenderer.material.color = player.GetColor();
+        marker.SetActive(true);
+
         owner = player;
     }
 
@@ -38,6 +44,7 @@ public class PropertyTile : Tile
     {
         owner.AddBalance(GetSellPrice());
         owner = null;
+        marker.SetActive(false);
     }
 
     public IEnumerator BuildHouse()
@@ -55,6 +62,8 @@ public class PropertyTile : Tile
             renderer.material.color = owner.GetColor();
             house.SetActive(true);
         }
+
+        marker.SetActive(false);
     }
 
     public void SetMonopoly(Monopoly monopoly)
@@ -138,6 +147,8 @@ public class PropertyTile : Tile
         {
             house.SetActive(false);
         }
+
+        marker.SetActive(false);
     }
 
     void Update()

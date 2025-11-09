@@ -43,34 +43,38 @@ public class GameLogic : MonoBehaviour
     private IEnumerator PlayRound()
     {
         Player player = players[currRound % players.Count];
-
+        bool repeatPlayer = false;
+        
         uiManager.SetPlayerPanel(player.GetPanel());
 
-        int diceResult = 0;
-        bool repeatPlayer = false;
-        yield return player.OptRollDice((result) => (diceResult, repeatPlayer) = result);
-
-        int currIndex = player.GetIndex();
-        int nextIndex = currIndex + diceResult;
-
-        for (int i = currIndex + 1; i <= nextIndex; i++)
+        if (!player.IsBankrupt())
         {
-            Tile tile = board.GetTile(i);
+            int diceResult = 0;
+            yield return player.OptRollDice((result) => (diceResult, repeatPlayer) = result);
 
-            player.MoveTo(tile);
+            int currIndex = player.GetIndex();
+            int nextIndex = currIndex + diceResult;
 
-            if (i != nextIndex)
+            for (int i = currIndex + 1; i <= nextIndex; i++)
             {
-                yield return tile.PassBy(player);
-            }
-            else
-            {
-                yield return tile.Visit(player);
+                Tile tile = board.GetTile(i);
+
+                player.MoveTo(tile);
+
+                if (i != nextIndex)
+                {
+                    yield return tile.PassBy(player);
+                }
+                else
+                {
+                    yield return tile.Visit(player);
+                }
+
+                yield return _movementDelay;
             }
 
-            yield return _movementDelay;
         }
-
+        
         if (!repeatPlayer) currRound += 1;
 
         yield return _waitForSeconds1;
