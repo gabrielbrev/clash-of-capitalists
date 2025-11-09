@@ -86,7 +86,7 @@ public class PropertyTile : Tile
     public int GetRentPrice()
     {
         int sellPrice = GetSellPrice();
-        return (int)(sellPrice * 0.095);
+        return (int)(sellPrice * 0.475);
     }
 
 

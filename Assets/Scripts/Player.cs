@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
@@ -160,6 +161,44 @@ public class Player : MonoBehaviour
 
     public virtual IEnumerator OptSelectTile(List<Tile> tiles, System.Action<Tile> callback)
     {
+        Ray ray;
+        Tile chosenTile = null;
+
+        while (true)
+        {
+            if (Mouse.current == null)
+            {
+                Debug.LogWarning("Mouse not detected by new Input System");
+                yield break;
+            }
+
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+            ray = Camera.main.ScreenPointToRay(mousePos);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                GameObject hoveredObject = hit.collider.gameObject;
+                Debug.Log($"achou: {hit.collider.gameObject.name}");
+
+                foreach (Tile tile in tiles)
+                {
+                    if (tile.gameObject == hoveredObject)
+                    {
+                        if (Mouse.current.leftButton.wasPressedThisFrame)
+                        {
+                            chosenTile = tile;
+                            break;
+                        }
+                    }
+                }
+
+                if (chosenTile != null) break;
+            }
+
+            yield return null;
+        }
+
+        callback.Invoke(chosenTile);
         yield break;
     }
 

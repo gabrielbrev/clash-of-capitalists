@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 public abstract class Tile : MonoBehaviour
 {
+    private static readonly List<Tile> instances = new();
     private int index;
     private readonly List<Player> players = new();
     protected Renderer tileRenderer;
-    protected bool selectable;
+
+    public static IReadOnlyList<Tile> GetSelectableTiles(Player player)
+    {
+        return instances.Where(t => t.IsSelectable(player)).ToList();
+    }
+
+    public static IReadOnlyList<Tile> GetAll()
+    {
+        return instances.ToList();
+    }
 
     public int GetIndex()
     {
@@ -20,9 +31,9 @@ public abstract class Tile : MonoBehaviour
         this.index = index;
     }
 
-    public bool IsSelectable()
+    public virtual bool IsSelectable(Player player)
     {
-        return selectable;
+        return true;
     }
 
     public void AddPlayer(Player player)
@@ -71,11 +82,17 @@ public abstract class Tile : MonoBehaviour
 
     void Awake()
     {
+        instances.Add(this);
         tileRenderer = GetComponent<Renderer>();
     }
 
     protected virtual void Start()
     {
         if (tileRenderer.material.mainTexture == null) tileRenderer.material.color = Random.ColorHSV();
+    }
+
+    void OnDestroy()
+    {
+        instances.Remove(this);
     }
 }

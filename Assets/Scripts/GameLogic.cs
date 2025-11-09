@@ -32,7 +32,7 @@ public class GameLogic : MonoBehaviour
             player.name = $"Jogador {i + 1}{(isAI ? " (AI)" : "")}";
             player.transform.parent = board.transform;
             player.MoveTo(startTile);
-            player.AddBalance(200000);
+            player.AddBalance(1_500_000);
 
             players.Add(player);
         }
