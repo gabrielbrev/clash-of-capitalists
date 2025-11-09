@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private static readonly WaitForSeconds _waitForSeconds5 = new(5f);
+    private static readonly List<Player> instances = new();
     public Renderer modelRenderer;
     [SerializeField] private GameObject panelPrefab;
     [SerializeField] private float moveSpeed;
@@ -19,6 +21,11 @@ public class Player : MonoBehaviour
     private CapsuleCollider playerCollider;
     private Vector3 targetPos;
     protected PlayerPanel panel;
+
+    public static IReadOnlyList<Player> GetAll()
+    {
+        return instances.ToList();
+    }
 
     private void UpdatePosition()
     {
@@ -104,7 +111,7 @@ public class Player : MonoBehaviour
         }
 
         panel.SetAlertText("");
-        
+
         balance -= amount;
         panel.SetBalanceText(-amount);
         yield break;
@@ -120,6 +127,11 @@ public class Player : MonoBehaviour
         }
 
         return balance + propertyPrices;
+    }
+
+    public int GetBalance()
+    {
+        return balance;
     }
 
     public PlayerPanel GetPanel()
@@ -238,6 +250,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        instances.Add(this);
         playerCollider = GetComponent<CapsuleCollider>();
 
         GameObject panelObj = Instantiate(panelPrefab);
@@ -254,5 +267,10 @@ public class Player : MonoBehaviour
     {
         UpdatePosition();
         UpdatePanel();
+    }
+
+    void OnDestroy()
+    {
+        instances.Remove(this);
     }
 }

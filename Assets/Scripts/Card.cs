@@ -16,5 +16,10 @@ public abstract class Card : MonoBehaviour
         return description;
     }
 
+    public void SetDescription(string text)
+    {
+        description = text;
+    }
+
     public abstract IEnumerator Use(Player player);
 }
