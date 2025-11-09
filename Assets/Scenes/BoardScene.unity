@@ -482,7 +482,7 @@ MonoBehaviour:
   distance: 155
   verticalAngle: 22.5
   rotateSpeed: 15
-  orbitAngle: 30
+  orbitAngle: 60
 --- !u!114 &333147957 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 240383290277442896, guid: 3bb898bdb48b065499d6a70b27ee487a, type: 3}
@@ -525,6 +525,8 @@ Transform:
   m_Children:
   - {fileID: 1074984645}
   - {fileID: 2090967031}
+  - {fileID: 1111616321}
+  - {fileID: 1886631646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &394504688
@@ -2155,6 +2157,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105677290}
   m_CullTransparentMesh: 1
+--- !u!1 &1111616320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1111616321}
+  - component: {fileID: 1111616322}
+  m_Layer: 0
+  m_Name: BankMoneyCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1111616321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111616320}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.18759, y: -100, z: -1.42268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 364359306}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111616322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111616320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7939486fb72da174dbe9a7af22c53da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BankMoneyCard
+  cardName: Sorte
+  description: 
+  type: 1
+  amount: 500000
 --- !u!1001 &1117474362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2562,7 +2612,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a558bdd90a3f34e328742799357bdb54, type: 2}
+  - {fileID: 2100000, guid: f41b557202d18b940960f3d8c6263149, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3522,8 +3572,8 @@ MonoBehaviour:
   uiManager: {fileID: 1551375929}
   playerPrefab: {fileID: 5942042273015882482, guid: 40d1b736a787e4c519775249fbae41dc, type: 3}
   playerAiPrefab: {fileID: 8105223216717593632, guid: cb49ccd4109f549889d875035f0d29d1, type: 3}
-  numPlayers: 6
-  numAiPlayers: 0
+  numPlayers: 0
+  numAiPlayers: 4
 --- !u!4 &1742337211
 Transform:
   m_ObjectHideFlags: 0
@@ -3998,6 +4048,54 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3af2a2df3a7fa46a1b4e7c8b2c4d0e30, type: 3}
+--- !u!1 &1886631645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1886631646}
+  - component: {fileID: 1886631647}
+  m_Layer: 0
+  m_Name: PlayerMoneyCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1886631646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886631645}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.18759, y: -100, z: -1.42268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 364359306}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1886631647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886631645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d769c8cda989c43a4983edc8ee0cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMoneyCard
+  cardName: Sorte
+  description: 
+  type: 1
+  amount: 100000
 --- !u!1 &1919937387
 GameObject:
   m_ObjectHideFlags: 0
