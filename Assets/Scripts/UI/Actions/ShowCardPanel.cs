@@ -17,11 +17,11 @@ public class ShowCardPanel : ActionPanel
 
         if (autoclose)
         {
-            button.enabled = false;
+            button.gameObject.SetActive(false);
 
             yield return _waitForSeconds2_5;
 
-            button.enabled = true;
+            button.gameObject.SetActive(true);
         } else
         {
             bool clicked = false;

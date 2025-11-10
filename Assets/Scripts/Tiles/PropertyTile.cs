@@ -41,6 +41,8 @@ public class PropertyTile : Tile
         markerRenderer.material.color = player.GetColor();
         marker.SetActive(true);
 
+        if (owner) owner.AddBalance(sellPrice);
+
         owner = player;
         owner.AddProperty(this);
     }
