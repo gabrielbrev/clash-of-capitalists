@@ -1,10 +1,14 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class PropertyTile : Tile
 {
     private static readonly int MAX_HOUSES = 4;
+    private static readonly List<PropertyTile> instances = new();
     [SerializeField] private GameObject[] houses;
     [SerializeField] private GameObject marker;
     [SerializeField] private GameObject colorPlane;
@@ -15,6 +19,11 @@ public class PropertyTile : Tile
     private Player owner;
     private int numHouses;
     private Monopoly monopoly;
+
+    public static new IReadOnlyList<PropertyTile> GetAll()
+    {
+        return instances.ToList();
+    }
 
     public bool IsOwner(Player player)
     {
@@ -157,5 +166,10 @@ public class PropertyTile : Tile
     {
         headerText.text = propertyName;
         bodyText.text = !owner ? $"À venda:\nR$ {GetBasePrice() / 1000f:F1}k" : $"Aluguel:\nR$ {GetRentPrice() / 1000f:F1}k";
+    }
+
+    internal List<PropertyTile> Where(Func<object, object> value)
+    {
+        throw new NotImplementedException();
     }
 }

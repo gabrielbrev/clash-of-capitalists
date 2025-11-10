@@ -88,6 +88,7 @@ public abstract class Tile : MonoBehaviour
 
     protected virtual void Start()
     {
+        Debug.Log(name);
         if (tileRenderer.material.mainTexture == null) tileRenderer.material.color = Random.ColorHSV();
     }
 
