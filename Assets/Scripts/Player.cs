@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour
     private Vector3 targetPos;
     protected PlayerPanel panel;
 
+    public static event Action<int> OnInstanceCountChange;
+
     public static IReadOnlyList<Player> GetAll()
     {
         return instances.ToList();
@@ -37,7 +40,7 @@ public class Player : MonoBehaviour
     private void UpdatePanel()
     {
         panel.SetInfo(
-            $"{name}\n{balance:C}\nPosição {index}\n{(prisonTime > 0 ? $"Tempo de prisão: {prisonTime}" : "")}"
+            $"{name}\n{balance:C}\n{(prisonTime > 0 ? $"Tempo de prisão: {prisonTime}" : "")}"
         );
     }
 
@@ -261,6 +264,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         instances.Add(this);
+        OnInstanceCountChange?.Invoke(instances.Count);
         playerCollider = GetComponent<CapsuleCollider>();
 
         GameObject panelObj = Instantiate(panelPrefab);
@@ -270,7 +274,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         bankrupt = false;
-        modelRenderer.material.color = Random.ColorHSV(0f, 1f, 0.9f, 1f, 0.9f, 1f);
+        modelRenderer.material.color = UnityEngine.Random.ColorHSV(0f, 1f, 0.9f, 1f, 0.9f, 1f);
     }
 
     void Update()
@@ -282,5 +286,6 @@ public class Player : MonoBehaviour
     void OnDestroy()
     {
         instances.Remove(this);
+        OnInstanceCountChange?.Invoke(instances.Count);
     }
 }
