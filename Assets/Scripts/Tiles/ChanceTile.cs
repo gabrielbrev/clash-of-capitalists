@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class ChanceTile : Tile
 {
-    [SerializeField] private Card[] cards;
     private static readonly System.Random rng = new();
+    private Card[] cards;
+    [SerializeField] private GameObject cardsFolder;
 
 
     public override IEnumerator PassBy(Player player)
@@ -17,5 +18,10 @@ public class ChanceTile : Tile
         Card randomCard = cards[rng.Next(cards.Length)];
         yield return player.OptShowCard(randomCard);
         yield return randomCard.Use(player);
+    }
+
+    private void Awake()
+    {
+        cards = cardsFolder.GetComponentsInChildren<Card>(true);
     }
 }
