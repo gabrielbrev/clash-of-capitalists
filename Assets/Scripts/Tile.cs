@@ -10,6 +10,7 @@ public abstract class Tile : MonoBehaviour
     private int index;
     private readonly List<Player> players = new();
     protected Renderer tileRenderer;
+    private Material glowMaterialInstance;
 
     public static IReadOnlyList<Tile> GetSelectableTiles(Player player)
     {
@@ -65,7 +66,7 @@ public abstract class Tile : MonoBehaviour
             int playerIndex = players.FindIndex(p => p == player);
             float angleDegrees = 360f / players.Count * playerIndex;
             float radius = tileRenderer.bounds.size.x * 1f / 5f;
-            
+
             Vector3 boardCenterDirection = transform.parent.position - tilePos;
             float angleToCenter = Vector3.Angle(Vector3.forward, boardCenterDirection) + 90f;
 
@@ -76,23 +77,42 @@ public abstract class Tile : MonoBehaviour
         }
     }
 
+    public void EnableGlow(Color glowColor, float intensity = 1f)
+    {
+        if (glowMaterialInstance == null) return;
+
+        glowMaterialInstance.EnableKeyword("_EMISSION");
+        glowMaterialInstance.SetColor("_EmissionColor", glowColor * intensity);
+        // Se estiver usando post-processing / bloom, a emissão vai gerar brilho visual extra
+    }
+
+    public void DisableGlow()
+    {
+        if (glowMaterialInstance == null) return;
+
+        glowMaterialInstance.DisableKeyword("_EMISSION");
+        glowMaterialInstance.SetColor("_EmissionColor", Color.black);
+    }
+
     public abstract IEnumerator PassBy(Player player);
 
     public abstract IEnumerator Visit(Player player);
 
-    void Awake()
+    protected virtual void Awake()
     {
         instances.Add(this);
         tileRenderer = GetComponent<Renderer>();
+
+        glowMaterialInstance = tileRenderer.material;
+        DisableGlow();    
     }
 
     protected virtual void Start()
     {
-        Debug.Log(name);
         if (tileRenderer.material.mainTexture == null) tileRenderer.material.color = Random.ColorHSV();
     }
 
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
         instances.Remove(this);
     }

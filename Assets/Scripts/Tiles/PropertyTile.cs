@@ -147,6 +147,8 @@ public class PropertyTile : Tile
     override protected void Start()
     {
         base.Start();
+        
+        instances.Add(this);
 
         if (monopoly)
         {
@@ -168,8 +170,10 @@ public class PropertyTile : Tile
         bodyText.text = !owner ? $"À venda:\nR$ {GetBasePrice() / 1000f:F1}k" : $"Aluguel:\nR$ {GetRentPrice() / 1000f:F1}k";
     }
 
-    internal List<PropertyTile> Where(Func<object, object> value)
+    protected override void OnDestroy()
     {
-        throw new NotImplementedException();
+        base.OnDestroy();
+
+        instances.Remove(this);
     }
 }

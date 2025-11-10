@@ -201,6 +201,11 @@ public class Player : MonoBehaviour
         Ray ray;
         T chosenTile = null;
 
+        foreach (T tile in tiles)
+        {
+            tile.EnableGlow(Color.cyan, 0.5f);
+        }
+
         while (true)
         {
             if (Mouse.current == null)
@@ -232,6 +237,11 @@ public class Player : MonoBehaviour
             }
 
             yield return null;
+        }
+
+        foreach (T tile in tiles)
+        {
+            tile.DisableGlow();
         }
 
         callback.Invoke(chosenTile);

@@ -20,8 +20,9 @@ public class ChanceTile : Tile
         yield return randomCard.Use(player);
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         cards = cardsFolder.GetComponentsInChildren<Card>(true);
     }
 }
