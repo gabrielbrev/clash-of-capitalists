@@ -10,6 +10,8 @@ public abstract class PropertyCard : Card
     public override IEnumerator Use(Player player)
     {
         List<PropertyTile> properties = GetAvailabelProperties(player);
+
+        if (properties.Count == 0) yield break;
         
         yield return player.OptSelectTile(properties, (chosenTile) =>
         {

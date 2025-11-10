@@ -7,6 +7,10 @@ public class ChanceTile : Tile
     private Card[] cards;
     [SerializeField] private GameObject cardsFolder;
 
+    public override bool IsSelectable(Player player)
+    {
+        return false;
+    }
 
     public override IEnumerator PassBy(Player player)
     {

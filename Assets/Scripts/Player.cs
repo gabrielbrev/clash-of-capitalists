@@ -270,7 +270,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         bankrupt = false;
-        modelRenderer.material.color = Random.ColorHSV();
+        modelRenderer.material.color = Random.ColorHSV(0f, 1f, 0.9f, 1f, 0.9f, 1f);
     }
 
     void Update()

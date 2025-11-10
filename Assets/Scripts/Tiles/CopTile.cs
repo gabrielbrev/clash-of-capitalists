@@ -7,6 +7,11 @@ public class CopTile : Tile
     [SerializeField] int prisonTime;
     [SerializeField] PrisonTile prison;
 
+    public override bool IsSelectable(Player player)
+    {
+        return false;
+    }
+
     public override IEnumerator PassBy(Player player)
     {
         yield break;

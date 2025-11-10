@@ -30,6 +30,11 @@ public class PropertyTile : Tile
         return player == owner;
     }
 
+    public override bool IsSelectable(Player player)
+    {
+        return owner == null || player == owner;
+    }
+
     public IEnumerator Buy(Player player)
     {
         int sellPrice = GetSellPrice();
