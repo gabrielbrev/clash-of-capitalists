@@ -1,11 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 public class SellPropertyCard : PropertyCard
 {
-    protected override void Execute(Player player, PropertyTile property)
+    protected override IEnumerator Execute(Player player, PropertyTile property)
     {
         property.Sell();
+        yield break; 
     }
 
     protected override List<PropertyTile> GetAvailabelProperties(Player player)

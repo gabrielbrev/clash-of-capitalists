@@ -135,10 +135,10 @@ public class PropertyTile : Tile
     {
         if (!owner)
         {
-            yield return player.OptBuyProperty(this, (buy) =>
-            {
-                if (buy) StartCoroutine(Buy(player));
-            });
+            bool? buy = null;
+            yield return player.OptBuyProperty(this, (b) => buy = b);
+            yield return new WaitUntil(() => buy != null);
+            if (buy == true) yield return Buy(player);
         }
         else if (player == owner)
         {

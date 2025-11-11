@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 public class BuyPropertyCard : PropertyCard
 {
-    protected override void Execute(Player player, PropertyTile property)
+    protected override IEnumerator Execute(Player player, PropertyTile property)
     {
-        StartCoroutine(property.Buy(player));
+        yield return property.Buy(player);
     }
 
     protected override List<PropertyTile> GetAvailabelProperties(Player player)
