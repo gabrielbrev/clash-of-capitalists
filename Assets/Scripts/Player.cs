@@ -110,6 +110,7 @@ public class Player : MonoBehaviour
             yield return OptSelectTile(properties, (chosenTile) =>
             {
                 chosenTile.Sell();
+                RemoveProperty(chosenTile);
             });
 
         }
