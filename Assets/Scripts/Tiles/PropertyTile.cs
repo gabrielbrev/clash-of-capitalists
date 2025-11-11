@@ -42,14 +42,30 @@ public class PropertyTile : Tile
 
         yield return player.SubtractBalance(sellPrice);
 
-        Renderer markerRenderer = marker.GetComponent<Renderer>();
-        markerRenderer.material.color = player.GetColor();
-        marker.SetActive(true);
-
         if (owner) owner.AddBalance(sellPrice);
 
         owner = player;
         owner.AddProperty(this);
+
+        if (numHouses == 0) marker.SetActive(true);
+        UpdateOwnerColors();
+    }
+
+    private void UpdateOwnerColors()
+    {
+        if (!owner) return;
+
+        Color ownerColor = owner.GetColor();
+
+        Renderer markerRenderer = marker.GetComponent<Renderer>();
+        markerRenderer.material.color = ownerColor;
+
+        for (int i = 0; i < numHouses; i++)
+        {
+            GameObject house = houses[i];
+            Renderer renderer = house.GetComponent<Renderer>();
+            renderer.material.color = ownerColor;
+        }
     }
 
     public void Auction()
@@ -73,14 +89,8 @@ public class PropertyTile : Tile
         yield return owner.SubtractBalance(buildPrice);
         numHouses += 1;
 
-        for (int i = 0; i < numHouses; i++)
-        {
-            GameObject house = houses[i];
-            Renderer renderer = house.GetComponent<Renderer>();
-            renderer.material.color = owner.GetColor();
-            house.SetActive(true);
-        }
-
+        houses[numHouses - 1].SetActive(true);
+        UpdateOwnerColors();
         marker.SetActive(false);
     }
 

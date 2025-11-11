@@ -107,10 +107,14 @@ public class Player : MonoBehaviour
 
             panel.SetAlertText("Você não tem dinheiro suficiente. Escolha uma propriedade para vender.");
 
+            bool sold = false;
             yield return OptSelectTile(properties, (chosenTile) =>
             {
                 chosenTile.Sell();
+                sold = true;
             });
+
+            yield return new WaitUntil(() => sold);
         }
 
         panel.SetAlertText("");
