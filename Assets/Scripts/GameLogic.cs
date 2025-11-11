@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     private static readonly WaitForSeconds _waitForSeconds1 = new(1f);
-    private static readonly WaitForSeconds _waitForSeconds3 = new(3f);
+    private static readonly WaitForSeconds _waitForSeconds1_5 = new(1.5f);
     private static readonly WaitForSeconds _movementDelay = new(0.5f);
     [SerializeField] private Board board;
     [SerializeField] private UIManager uiManager;
@@ -37,7 +37,7 @@ public class GameLogic : MonoBehaviour
             players.Add(player);
         }
 
-        yield return _waitForSeconds3;
+        yield return _waitForSeconds1_5;
     }
 
     private IEnumerator PlayRound()
@@ -101,6 +101,8 @@ public class GameLogic : MonoBehaviour
 
     void Start()
     {
+        numPlayers = PlayerPrefs.GetInt("NumPlayers", 1);
+        numAiPlayers = PlayerPrefs.GetInt("NumAiPlayers", 3);
         StartCoroutine(InitializeAndStartGame());
     }
 

@@ -21,24 +21,20 @@ public class FullscreenToggle : MonoBehaviour
     {
         bool togglePressed;
 
-        // Prefer the new Input System when available, otherwise fall back to legacy Input
         if (Keyboard.current != null)
         {
-            togglePressed = Keyboard.current.f11Key.wasPressedThisFrame ||
-                            Keyboard.current.escapeKey.wasPressedThisFrame;
+            togglePressed = Keyboard.current.f11Key.wasPressedThisFrame;
         }
         else
         {
-            togglePressed = Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.Escape);
+            togglePressed = Input.GetKeyDown(KeyCode.F11);
         }
 
         if (!togglePressed)
             return;
 
-        // Toggle fullscreen state. When entering fullscreen, set resolution to monitor/native resolution.
         if (!Screen.fullScreen)
         {
-            // Save current windowed resolution to restore later
             previousWidth = Screen.width;
             previousHeight = Screen.height;
             previousFullScreenMode = Screen.fullScreenMode;
@@ -46,13 +42,11 @@ public class FullscreenToggle : MonoBehaviour
 
             Resolution monitorRes = Screen.currentResolution;
 
-            // Set the resolution to the monitor's native resolution and enter fullscreen windowed mode
             Screen.SetResolution(monitorRes.width, monitorRes.height, FullScreenMode.FullScreenWindow);
             Screen.fullScreen = true;
         }
         else
         {
-            // Restore previous resolution and fullscreen state (usually windowed)
             Screen.SetResolution(previousWidth, previousHeight, previousFullScreenMode);
             Screen.fullScreen = previousFullScreenState;
         }
