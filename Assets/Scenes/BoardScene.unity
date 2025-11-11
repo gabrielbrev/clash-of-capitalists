@@ -3707,6 +3707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1742337211}
   - component: {fileID: 1742337210}
+  - component: {fileID: 1742337212}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -3747,6 +3748,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1742337212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1742337209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fbf1c2e43657a04e85c4e65fbd988e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullscreenToggle
 --- !u!114 &1743783317 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8502176247277206937, guid: d7da764b015494948a926f057fb6329f, type: 3}
