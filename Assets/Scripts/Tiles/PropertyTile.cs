@@ -73,10 +73,13 @@ public class PropertyTile : Tile
 
     public void Sell()
     {
-        owner.AddBalance(GetSellPrice());
-        owner.RemoveProperty(this);
-        owner = null;
-        marker.SetActive(false);
+        if (owner)
+        { 
+            owner.AddBalance(GetSellPrice());
+            owner.RemoveProperty(this);
+            owner = null;
+            marker.SetActive(false);
+        }
         UpdateOwnerColors();
     }
 
