@@ -53,9 +53,7 @@ public class PropertyTile : Tile
 
     private void UpdateOwnerColors()
     {
-        if (!owner) return;
-
-        Color ownerColor = owner.GetColor();
+        Color ownerColor = owner != null ? owner.GetColor() : Color.white;
 
         Renderer markerRenderer = marker.GetComponent<Renderer>();
         markerRenderer.material.color = ownerColor;
@@ -79,6 +77,7 @@ public class PropertyTile : Tile
         owner.RemoveProperty(this);
         owner = null;
         marker.SetActive(false);
+        UpdateOwnerColors();
     }
 
     public IEnumerator BuildHouse()
