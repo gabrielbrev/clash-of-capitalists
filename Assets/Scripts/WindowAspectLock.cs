@@ -4,9 +4,19 @@ public class WindowAspectLock : MonoBehaviour
 {
     public float targetAspect = 16f / 9f;
     private bool adjusting = false;
+    private bool wasFullScreen = false;
 
     void Update()
     {
+        if (Screen.fullScreen != wasFullScreen)
+        {
+            wasFullScreen = Screen.fullScreen;
+            adjusting = false;
+        }
+
+        if (Screen.fullScreen)
+            return;
+
         if (adjusting)
             return;
 

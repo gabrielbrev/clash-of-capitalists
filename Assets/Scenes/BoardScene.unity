@@ -547,7 +547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad51c4c727b64dff909521a7c6d56da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraAspectLock
-  targetAspect: 1.7777778
 --- !u!114 &333147957 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 240383290277442896, guid: 3bb898bdb48b065499d6a70b27ee487a, type: 3}
@@ -3803,7 +3802,6 @@ GameObject:
   - component: {fileID: 1742337210}
   - component: {fileID: 1742337212}
   - component: {fileID: 1742337213}
-  - component: {fileID: 1742337214}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -3871,19 +3869,6 @@ MonoBehaviour:
   escWarningText: {fileID: 971768274}
   sceneToLoad: MenuScene
   doublePressThreshold: 1
---- !u!114 &1742337214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742337209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde9a9ff380b38e48a93238c07483bad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WindowAspectLock
-  targetAspect: 1.7777778
 --- !u!114 &1743783317 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8502176247277206937, guid: d7da764b015494948a926f057fb6329f, type: 3}

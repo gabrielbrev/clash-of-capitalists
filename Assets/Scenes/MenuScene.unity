@@ -494,7 +494,6 @@ GameObject:
   - component: {fileID: 539627593}
   - component: {fileID: 539627592}
   - component: {fileID: 539627594}
-  - component: {fileID: 539627595}
   - component: {fileID: 539627596}
   m_Layer: 0
   m_Name: PrefsManager
@@ -545,19 +544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbf1c2e43657a04e85c4e65fbd988e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FullscreenToggle
---- !u!114 &539627595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539627591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde9a9ff380b38e48a93238c07483bad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WindowAspectLock
-  targetAspect: 1.7777778
 --- !u!114 &539627596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,7 +551,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539627591}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8eb5b1cad8012464b9cadcb99ba2db3e, type: 3}
   m_Name: 

@@ -23,11 +23,11 @@ public class FullscreenToggle : MonoBehaviour
 
         if (Keyboard.current != null)
         {
-            togglePressed = Keyboard.current.f11Key.wasPressedThisFrame;
+            togglePressed = Keyboard.current.f11Key.wasPressedThisFrame || Keyboard.current.backquoteKey.wasPressedThisFrame;
         }
         else
         {
-            togglePressed = Input.GetKeyDown(KeyCode.F11);
+            togglePressed = Input.GetKeyDown(KeyCode.F11) || Input.GetKeyDown(KeyCode.BackQuote);
         }
 
         if (!togglePressed)
